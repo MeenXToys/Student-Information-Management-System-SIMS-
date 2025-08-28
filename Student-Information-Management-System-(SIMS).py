@@ -1,5 +1,5 @@
 # Program-ID   : student_system.py
-# Author       : Muhaimin Bin Mahadi & Topa & Arsad 
+# Author       : Muhaimin  & Topa & Arsad 
 # OS           : Windows 11
 # Interpreter  : Python 3.12
 # Note         : Student Information Management System (SIMS) for adding, viewing, searching, and reporting student details.
@@ -27,18 +27,29 @@ def add_student():
 
     print("✅ Student details saved successfully!\n")
 
-# Function to view all student details
+# Function to view all student details (TABLE FORMAT)
 def view_students():
     print("\n--- All Student Details ---")
     if not os.path.exists(student_file):
         print("⚠ No records found.\n")
         return
 
+    # Header
+    print("="*120)
+    print(f"{'ID':<15}{'Name':<30}{'DOB':<12}{'Address':<25}{'Gender':<10}{'Intake':<12}{'Email':<25}")
+    print("="*120)
+
+    # Data
     with open(student_file, "r") as f:
         for line in f:
             data = line.strip().split(",")
-            print(f"ID: {data[0]}, Name: {data[1]} {data[2]}, DOB: {data[3]}, Address: {data[4]}, Gender: {data[5]}, Intake: {data[6]}, Email: {data[7]}")
-    print()
+            if len(data) < 8:  # Skip incomplete records
+                continue
+            student_id, fname, sname, dob, address, gender, intake, email = data
+            full_name = f"{fname} {sname}"
+            print(f"{student_id:<15}{full_name:<30}{dob:<12}{address:<25}{gender:<10}{intake:<12}{email:<25}")
+
+    print("="*120 + "\n")
 
 # Function to search by ID
 def search_student():
@@ -53,8 +64,19 @@ def search_student():
     with open(student_file, "r") as f:
         for line in f:
             data = line.strip().split(",")
+            if len(data) < 8:
+                continue
             if data[0] == search_id:
-                print(f"✅ Student Found: ID: {data[0]}, Name: {data[1]} {data[2]}, DOB: {data[3]}, Address: {data[4]}, Gender: {data[5]}, Intake: {data[6]}, Email: {data[7]}")
+                print("\n✅ Student Found!")
+                print("-"*50)
+                print(f"ID      : {data[0]}")
+                print(f"Name    : {data[1]} {data[2]}")
+                print(f"DOB     : {data[3]}")
+                print(f"Address : {data[4]}")
+                print(f"Gender  : {data[5]}")
+                print(f"Intake  : {data[6]}")
+                print(f"Email   : {data[7]}")
+                print("-"*50)
                 found = True
                 break
 
@@ -69,11 +91,16 @@ def produce_report():
         return
 
     with open(student_file, "r") as f_in, open(report_file, "w") as f_out:
-        f_out.write("STUDENT REPORT\n")
-        f_out.write("====================\n\n")
+        f_out.write("===== STUDENT REPORT =====\n\n")
+        f_out.write(f"{'ID':<15}{'Name':<30}{'DOB':<12}{'Address':<25}{'Gender':<10}{'Intake':<12}{'Email':<25}\n")
+        f_out.write("="*120 + "\n")
         for line in f_in:
             data = line.strip().split(",")
-            f_out.write(f"ID: {data[0]}\nName: {data[1]} {data[2]}\nDOB: {data[3]}\nAddress: {data[4]}\nGender: {data[5]}\nIntake: {data[6]}\nEmail: {data[7]}\n\n")
+            if len(data) < 8:
+                continue
+            student_id, fname, sname, dob, address, gender, intake, email = data
+            full_name = f"{fname} {sname}"
+            f_out.write(f"{student_id:<15}{full_name:<30}{dob:<12}{address:<25}{gender:<10}{intake:<12}{email:<25}\n")
 
     print(f"✅ Report generated successfully as {report_file}\n")
 
