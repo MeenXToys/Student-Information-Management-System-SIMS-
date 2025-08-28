@@ -1,5 +1,5 @@
 # Program-ID   : student_system.py
-# Author       : Muhaimin Bin Mahadi & Topa & Arsad bin muhd
+# Author       : Muhaimin Bin Mahadi & Topa & Arsad bin ckjbsa
 # OS           : Windows 11
 # Interpreter  : Python 3.12
 # Note         : Student Information Management System (SIMS) for adding, viewing, searching, and reporting student details.
