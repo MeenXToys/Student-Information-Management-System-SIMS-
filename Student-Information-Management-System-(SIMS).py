@@ -1,5 +1,5 @@
 # Program-ID   : Student-Information-Management-System-(SIMS).py
-# Author       : Muhaimin  & Topa & Arsad 
+# Author       : Meen & Topa & Arsad
 # OS           : Windows 11
 # Interpreter  : Python 3.12
 # Note         : Student Information Management System (SIMS) for adding, viewing, searching, and reporting student details.
@@ -27,29 +27,27 @@ def add_student():
 
     print("✅ Student details saved successfully!\n")
 
-# Function to view all student details (TABLE FORMAT)
+# Function to view all student details
 def view_students():
     print("\n--- All Student Details ---")
     if not os.path.exists(student_file):
         print("⚠ No records found.\n")
         return
 
-    # Header
-    print("="*120)
-    print(f"{'ID':<15}{'Name':<30}{'DOB':<12}{'Address':<25}{'Gender':<10}{'Intake':<12}{'Email':<25}")
-    print("="*120)
-
-    # Data
     with open(student_file, "r") as f:
-        for line in f:
+        for i, line in enumerate(f, start=1):
             data = line.strip().split(",")
-            if len(data) < 8:  # Skip incomplete records
-                continue
-            student_id, fname, sname, dob, address, gender, intake, email = data
-            full_name = f"{fname} {sname}"
-            print(f"{student_id:<15}{full_name:<30}{dob:<12}{address:<25}{gender:<10}{intake:<12}{email:<25}")
-
-    print("="*120 + "\n")
+            print("="*40)
+            print(f" No. {i}")
+            print("-"*40)
+            print(f"ID      : {data[0]}")
+            print(f"Name    : {data[1]} {data[2]}")
+            print(f"DOB     : {data[3]}")
+            print(f"Address : {data[4]}")
+            print(f"Gender  : {data[5]}")
+            print(f"Intake  : {data[6]}")
+            print(f"Email   : {data[7]}")
+        print("="*40 + "\n")
 
 # Function to search by ID
 def search_student():
@@ -64,11 +62,10 @@ def search_student():
     with open(student_file, "r") as f:
         for line in f:
             data = line.strip().split(",")
-            if len(data) < 8:
-                continue
             if data[0] == search_id:
-                print("\n✅ Student Found!")
-                print("-"*50)
+                print("="*40)
+                print(" ✅ Student Found")
+                print("-"*40)
                 print(f"ID      : {data[0]}")
                 print(f"Name    : {data[1]} {data[2]}")
                 print(f"DOB     : {data[3]}")
@@ -76,7 +73,7 @@ def search_student():
                 print(f"Gender  : {data[5]}")
                 print(f"Intake  : {data[6]}")
                 print(f"Email   : {data[7]}")
-                print("-"*50)
+                print("="*40 + "\n")
                 found = True
                 break
 
@@ -91,16 +88,25 @@ def produce_report():
         return
 
     with open(student_file, "r") as f_in, open(report_file, "w") as f_out:
-        f_out.write("===== STUDENT REPORT =====\n\n")
-        f_out.write(f"{'ID':<15}{'Name':<30}{'DOB':<12}{'Address':<25}{'Gender':<10}{'Intake':<12}{'Email':<25}\n")
-        f_out.write("="*120 + "\n")
-        for line in f_in:
+        f_out.write("="*31 + "\n")
+        f_out.write("        STUDENT REPORT\n")
+        f_out.write("="*31 + "\n\n")
+
+        for i, line in enumerate(f_in, start=1):
             data = line.strip().split(",")
-            if len(data) < 8:
-                continue
-            student_id, fname, sname, dob, address, gender, intake, email = data
-            full_name = f"{fname} {sname}"
-            f_out.write(f"{student_id:<15}{full_name:<30}{dob:<12}{address:<25}{gender:<10}{intake:<12}{email:<25}\n")
+            f_out.write(f"No. {i}\n")
+            f_out.write("-"*31 + "\n")
+            f_out.write(f"ID      : {data[0]}\n")
+            f_out.write(f"Name    : {data[1]} {data[2]}\n")
+            f_out.write(f"DOB     : {data[3]}\n")
+            f_out.write(f"Address : {data[4]}\n")
+            f_out.write(f"Gender  : {data[5]}\n")
+            f_out.write(f"Intake  : {data[6]}\n")
+            f_out.write(f"Email   : {data[7]}\n\n")
+
+        f_out.write("="*31 + "\n")
+        f_out.write("     END OF REPORT\n")
+        f_out.write("="*31 + "\n")
 
     print(f"✅ Report generated successfully as {report_file}\n")
 
