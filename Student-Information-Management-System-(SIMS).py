@@ -22,7 +22,7 @@ def get_non_empty_input(prompt):
 # Function to add student details
 def add_student():
     print("\n--- Enter Student Details ---")
-    student_id = get_non_empty_input("Enter Student ID: ")
+    student_id = get_non_empty_input("Enter Student ID: ").upper()
     fname = get_non_empty_input("Enter First Name: ")
     sname = get_non_empty_input("Enter Surname: ")
     dob = get_non_empty_input("Enter Date of Birth (dd/mm/yyyy): ")
@@ -47,7 +47,7 @@ def view_students():
 
     # Header
     print("="*140)
-    print(f"{'ID':<15}{'Name':<30}{'DOB':<12}{'Address':<50}{'Gender':<10}{'Intake':<12}{'Email':<25}")
+    print(f"{'ID':<15}{'Name':<30}{'DOB':<12}{'Address':<40}{'Gender':<10}{'Intake':<12}{'Email':<25}")
     print("="*140)
 
     # Data
@@ -59,14 +59,14 @@ def view_students():
             else:
                 student_id, fname, sname, dob, address, gender, intake, email = data
                 full_name = f"{fname} {sname}"
-                print(f"{student_id:<15}{full_name:<30}{dob:<12}{address:<50}{gender:<10}{intake:<12}{email:<25}")
+                print(f"{student_id:<15}{full_name:<30}{dob:<12}{address:<40}{gender:<10}{intake:<12}{email:<25}")
 
     print("="*140 + "\n")
 
 # Function to search by ID
 def search_student():
     print("\n--- Search Student By ID ---")
-    search_id = input("Enter Student ID: ")
+    search_id = input("Enter Student ID: ").upper()
 
     if not os.path.exists(student_file):
         print("⚠ No records found.\n")
@@ -80,7 +80,7 @@ def search_student():
                 continue
             if data[0] == search_id:
                 print("\n✅ Student Found!")
-                print("-"*50)
+                print("-"*40)
                 print(f"ID      : {data[0]}")
                 print(f"Name    : {data[1]} {data[2]}")
                 print(f"DOB     : {data[3]}")
@@ -88,7 +88,7 @@ def search_student():
                 print(f"Gender  : {data[5]}")
                 print(f"Intake  : {data[6]}")
                 print(f"Email   : {data[7]}")
-                print("-"*50)
+                print("-"*40)
                 found = True
                 break
 
@@ -104,7 +104,7 @@ def produce_report():
 
     with open(student_file, "r") as f_in, open(report_file, "w") as f_out:
         f_out.write("===== STUDENT REPORT =====\n\n")
-        f_out.write(f"{'ID':<15}{'Name':<30}{'DOB':<12}{'Address':<50}{'Gender':<10}{'Intake':<12}{'Email':<25}\n")
+        f_out.write(f"{'ID':<15}{'Name':<30}{'DOB':<12}{'Address':<40}{'Gender':<10}{'Intake':<12}{'Email':<25}\n")
         f_out.write("="*140 + "\n")
         for line in f_in:
             data = line.strip().split("|")
@@ -112,7 +112,7 @@ def produce_report():
                 continue
             student_id, fname, sname, dob, address, gender, intake, email = data
             full_name = f"{fname} {sname}"
-            f_out.write(f"{student_id:<15}{full_name:<30}{dob:<12}{address:<50}{gender:<10}{intake:<12}{email:<25}\n")
+            f_out.write(f"{student_id:<15}{full_name:<30}{dob:<12}{address:<40}{gender:<10}{intake:<12}{email:<25}\n")
 
     print(f"✅ Report generated successfully as {report_file}\n")
 

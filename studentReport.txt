@@ -1,0 +1,6 @@
+===== STUDENT REPORT =====
+
+ID             Name                          DOB         Address                                 Gender    Intake      Email                    
+============================================================================================================================================
+CBS24070519    Akmal Mustofa                 06/12/2006  Taman Kajang Mewah, Kajang, Selangor    Male      July 2024   akmalzool@yahoo.com      
+CBS24070520    Alexender McGraham            23/04/2006  Kg. Tangkas, Kajang, Selangor           Male      July 2024   AlexGra@gmail.com        
