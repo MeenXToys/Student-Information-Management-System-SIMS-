@@ -1,0 +1,5 @@
+{
+    "python.languageServer": "Default",
+    "python.analysis.languageServerMode": "default",
+    "python.analysis.autoImportCompletions": true
+}

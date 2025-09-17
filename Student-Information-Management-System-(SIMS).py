@@ -10,20 +10,31 @@ import os
 student_file = "studentsdetails.txt"
 report_file = "studentReport.txt"
 
+# Function to detect empty input
+def get_non_empty_input(prompt):
+    while True:
+        value = input(prompt).strip()
+        if value:
+            return value
+        print("Input cannot be empty. Please try again.")
+
+
 # Function to add student details
 def add_student():
     print("\n--- Enter Student Details ---")
-    student_id = input("Enter Student ID: ")
-    fname = input("Enter First Name: ")
-    sname = input("Enter Surname: ")
-    dob = input("Enter Date of Birth (dd/mm/yy): ")
-    address = input("Enter Address: ")
-    gender = input("Enter Gender: ")
-    intake = input("Enter Intake: ")
-    email = input("Enter Email: ")
+    student_id = get_non_empty_input("Enter Student ID: ")
+    fname = get_non_empty_input("Enter First Name: ")
+    sname = get_non_empty_input("Enter Surname: ")
+    dob = get_non_empty_input("Enter Date of Birth (dd/mm/yyyy): ")
+    address = get_non_empty_input("Enter Address: ")
+    gender = get_non_empty_input("Enter Gender: ")
+    intake = get_non_empty_input("Enter Intake: ")
+    email = get_non_empty_input("Enter Email: ")
+
 
     with open(student_file, "a") as f:
-        f.write(f"{student_id},{fname},{sname},{dob},{address},{gender},{intake},{email}\n")
+        
+        f.write(f"{student_id}|{fname}|{sname}|{dob}|{address}|{gender}|{intake}|{email}\n") #instead of seperate it using  comma, we use pipe
 
     print("✅ Student details saved successfully!\n")
 
@@ -35,21 +46,22 @@ def view_students():
         return
 
     # Header
-    print("="*120)
-    print(f"{'ID':<15}{'Name':<30}{'DOB':<12}{'Address':<25}{'Gender':<10}{'Intake':<12}{'Email':<25}")
-    print("="*120)
+    print("="*140)
+    print(f"{'ID':<15}{'Name':<30}{'DOB':<12}{'Address':<50}{'Gender':<10}{'Intake':<12}{'Email':<25}")
+    print("="*140)
 
     # Data
     with open(student_file, "r") as f:
         for line in f:
-            data = line.strip().split(",")
+            data = line.strip().split("|")
             if len(data) < 8:  # Skip incomplete records
                 continue
-            student_id, fname, sname, dob, address, gender, intake, email = data
-            full_name = f"{fname} {sname}"
-            print(f"{student_id:<15}{full_name:<30}{dob:<12}{address:<25}{gender:<10}{intake:<12}{email:<25}")
+            else:
+                student_id, fname, sname, dob, address, gender, intake, email = data
+                full_name = f"{fname} {sname}"
+                print(f"{student_id:<15}{full_name:<30}{dob:<12}{address:<50}{gender:<10}{intake:<12}{email:<25}")
 
-    print("="*120 + "\n")
+    print("="*140 + "\n")
 
 # Function to search by ID
 def search_student():
@@ -63,7 +75,7 @@ def search_student():
     found = False
     with open(student_file, "r") as f:
         for line in f:
-            data = line.strip().split(",")
+            data = line.strip().split("|")
             if len(data) < 8:
                 continue
             if data[0] == search_id:
@@ -92,15 +104,15 @@ def produce_report():
 
     with open(student_file, "r") as f_in, open(report_file, "w") as f_out:
         f_out.write("===== STUDENT REPORT =====\n\n")
-        f_out.write(f"{'ID':<15}{'Name':<30}{'DOB':<12}{'Address':<25}{'Gender':<10}{'Intake':<12}{'Email':<25}\n")
-        f_out.write("="*120 + "\n")
+        f_out.write(f"{'ID':<15}{'Name':<30}{'DOB':<12}{'Address':<50}{'Gender':<10}{'Intake':<12}{'Email':<25}\n")
+        f_out.write("="*140 + "\n")
         for line in f_in:
-            data = line.strip().split(",")
+            data = line.strip().split("|")
             if len(data) < 8:
                 continue
             student_id, fname, sname, dob, address, gender, intake, email = data
             full_name = f"{fname} {sname}"
-            f_out.write(f"{student_id:<15}{full_name:<30}{dob:<12}{address:<25}{gender:<10}{intake:<12}{email:<25}\n")
+            f_out.write(f"{student_id:<15}{full_name:<30}{dob:<12}{address:<50}{gender:<10}{intake:<12}{email:<25}\n")
 
     print(f"✅ Report generated successfully as {report_file}\n")
 
@@ -129,7 +141,7 @@ def main_menu():
             produce_report()
         elif choice == "E":
             clear_screen()
-            print("👋 Logged out. Returning to Main Menu...\n")
+            print("👋 Logged out.\n")
             break
         else:
             print("⚠ Invalid option! Please choose A-E.\n")
