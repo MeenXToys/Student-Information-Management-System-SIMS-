@@ -14,10 +14,10 @@ report_file = "studentReport.txt"
 def get_non_empty_input(prompt):
     while True:
         value = input(prompt).strip()
-        if value:
+        if value == "":
+            print("Input cannot be empty. Please try again.")
+        else:
             return value
-        print("Input cannot be empty. Please try again.")
-
 
 # Function to add student details
 def add_student():
