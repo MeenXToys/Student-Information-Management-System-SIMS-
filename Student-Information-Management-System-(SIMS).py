@@ -43,6 +43,7 @@ def view_students():
     print("\n--- All Student Details ---")
     if not os.path.exists(student_file):
         print("⚠ No records found.\n")
+
         return
 
     # Header
@@ -51,7 +52,7 @@ def view_students():
     print("="*140)
 
     # Data
-    with open(student_file, "r") as f:
+    with open(student_file, "r") as f:  #"r → Read (file must exist).
         for line in f:
             data = line.strip().split("|")
             if len(data) < 8:  # Skip incomplete records
@@ -73,7 +74,7 @@ def search_student():
         return
 
     found = False
-    with open(student_file, "r") as f:
+    with open(student_file, "r") as f: #"r" → Read (file must exist).
         for line in f:
             data = line.strip().split("|")
             if len(data) < 8:
@@ -110,6 +111,8 @@ def produce_report():
             data = line.strip().split("|")
             if len(data) < 8:
                 continue
+
+            
             student_id, fname, sname, dob, address, gender, intake, email = data
             full_name = f"{fname} {sname}"
             f_out.write(f"{student_id:<15}{full_name:<30}{dob:<12}{address:<40}{gender:<10}{intake:<12}{email:<25}\n")
@@ -129,7 +132,7 @@ def main_menu():
         print("C. Search By ID")
         print("D. Produce Report")
         print("E. Quit / Logout")
-        choice = input("Choose an option (A-E): ").upper()
+        choice = input("Choose an option (A-E): ").upper() #Convert to UPPERCASE
 
         if choice == "A":
             add_student()
