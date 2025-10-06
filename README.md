@@ -96,7 +96,7 @@ studentReport.txt → Stores generated student reports.
 Authors
 Muhaimin
 Topa
-Arhsad
+Arshad
 
 
 <img width="644" height="189" alt="image" src="https://github.com/user-attachments/assets/adef1036-99e6-4543-bbf4-3586491b5d66" />
@@ -104,4 +104,5 @@ Arhsad
 <img width="1355" height="164" alt="image" src="https://github.com/user-attachments/assets/7a6e72bb-c878-4833-af21-399403c86bfa" />
 
 <img width="1108" height="96" alt="image" src="https://github.com/user-attachments/assets/56c46ea6-0a35-443c-bbb8-85f7f05c947d" />
+
 
